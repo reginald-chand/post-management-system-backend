@@ -9,7 +9,7 @@ export const postCreateController = async (request, response) => {
     return response.status(400).json({ responseMessage: error.message });
   }
 
-  const { postTitle, postContent, postAuthor, serverResponse } = value;
+  const { postTitle, postContent, postAuthor, userData } = value;
 
   try {
     const existingPosts = await PostModel.exists({
@@ -27,7 +27,7 @@ export const postCreateController = async (request, response) => {
     const currentTime = new Date().toTimeString();
 
     const postInformation = {
-      userId: serverResponse.responseMessage.id,
+      userId: userData.id,
       postTitle,
       postSlug: postTitle,
       postContent,
