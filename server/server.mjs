@@ -9,7 +9,6 @@ import { rateLimitMiddleware } from "./middlewares/rate.limit.middleware.mjs";
 import { routes } from "./routes/routes.mjs";
 import session from "express-session";
 import { sessionOptions } from "./configs/session.options.config.mjs";
-import { userVerificationMiddleware } from "./middlewares/user.verification.middleware.mjs";
 
 config();
 mongodbDatabase();
@@ -42,7 +41,6 @@ app.use(
 );
 
 app.use(rateLimitMiddleware);
-app.use("/", userVerificationMiddleware);
 app.use("/", routes);
 
 app.listen(process.env.EXPRESS_PORT, () => {
