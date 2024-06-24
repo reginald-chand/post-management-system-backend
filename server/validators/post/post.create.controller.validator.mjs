@@ -7,5 +7,5 @@ export const postCreateControllerValidator = Joi.object({
   postContent: Joi.string().required(),
   postAuthor: Joi.string().pattern(new RegExp("^[A-Z].*$")).required(),
 
-  serverResponse: Joi.object().required(),
+  userData: Joi.object().required(),
 });
