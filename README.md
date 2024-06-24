@@ -29,7 +29,7 @@ The system ensures efficient content handling, scalability, and security, making
 
 The Post Management System Backend serves as a foundational backend solution for applications needing robust content management capabilities.
 
-It includes operations for creating, updating, and deleting posts securely, ensuring data integrity and efficient performance.
+It includes operations for creating, updating, reading, and deleting posts securely, ensuring data integrity and efficient performance.
 
 ### Why This Project?
 
@@ -39,7 +39,7 @@ This project provides a reliable backend solution that ensures efficient content
 
 ### Architecture Overview
 
-The Post Management System Backend serves as a microservice handling content creation, update, and delete operations.
+The Post Management System Backend serves as a microservice handling content creation, update, read, and delete operations.
 
 Positioned within a microservices architecture, it ensures modular scalability and operational efficiency as a dedicated service.
 
