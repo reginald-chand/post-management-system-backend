@@ -9,8 +9,9 @@ const postSchema = new mongoose.Schema(
       ref: "User",
     },
 
-    postTitle: { type: String, required: true, unique: true },
-    postSlug: { type: String, required: true, unique: true },
+    userName: { type: String, required: true, ref: "User" },
+    postTitle: { type: String, required: true },
+    postSlug: { type: String, required: true },
     postContent: { type: String, required: true },
     postAuthor: { type: String, required: true },
     postDate: { type: String, required: true },
