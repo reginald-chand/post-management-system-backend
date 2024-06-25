@@ -10,11 +10,12 @@ export const postUpdateController = async (request, response) => {
     return response.status(400).json({ responseMessage: error.message });
   }
 
-  const { postTitle, postContent, postAuthor } = value;
+  const { postTitle, postContent, postAuthor, userData } = value;
   const { postSlug } = request.params;
 
   try {
     const existingPosts = await PostModel.exists({
+      userId: { $eq: userData.id },
       postSlug: { $eq: postSlug },
     });
 
