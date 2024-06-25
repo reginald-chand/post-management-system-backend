@@ -10,9 +10,11 @@ export const postCreateController = async (request, response) => {
   }
 
   const { postTitle, postContent, postAuthor, userData } = value;
+  console.log(userData);
 
   try {
     const existingPosts = await PostModel.exists({
+      userId: { $eq: userData.id },
       postTitle: { $eq: postTitle },
     });
 
@@ -28,6 +30,7 @@ export const postCreateController = async (request, response) => {
 
     const postInformation = {
       userId: userData.id,
+      userName: userData.userName,
       postTitle,
       postSlug: postTitle,
       postContent,
