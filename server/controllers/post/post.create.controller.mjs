@@ -1,6 +1,7 @@
 import { PostModel } from "../../models/post/post.model.mjs";
 import { logger } from "../../configs/logger.config.mjs";
 import { postCreateControllerValidator } from "../../validators/post/post.create.controller.validator.mjs";
+import { redisClient } from "../../configs/redis.client.config.mjs";
 
 export const postCreateController = async (request, response) => {
   const { error, value } = postCreateControllerValidator.validate(request.body);
@@ -9,9 +10,15 @@ export const postCreateController = async (request, response) => {
     return response.status(400).json({ responseMessage: error.message });
   }
 
-  const { postTitle, postContent, postAuthor, userData } = value;
+  const { postTitle, postContent, postAuthor, csrfToken, userData } = value;
 
   try {
+    const userSession = await redisClient.hGetAll(userData.email);
+
+    if (csrfToken !== userSession.csrfToken) {
+      return response.status(401).json({ responseMessage: "UnAuthorized." });
+    }
+
     const existingPosts = await PostModel.exists({
       userId: { $eq: userData.id },
       postTitle: { $eq: postTitle },

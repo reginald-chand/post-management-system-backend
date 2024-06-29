@@ -1,5 +1,6 @@
 import { PostModel } from "../../models/post/post.model.mjs";
 import { logger } from "../../configs/logger.config.mjs";
+import { redisClient } from "../../configs/redis.client.config.mjs";
 import { userObjectValidator } from "../../validators/user/user.object.validator.mjs";
 
 export const postDeleteController = async (request, response) => {
@@ -9,10 +10,16 @@ export const postDeleteController = async (request, response) => {
     return response.status(400).json({ responseMessage: error.message });
   }
 
-  const { userData } = value;
+  const { csrfToken, userData } = value;
   const { postSlug } = request.params;
 
   try {
+    const userSession = await redisClient.hGetAll(userData.email);
+
+    if (csrfToken !== userSession.csrfToken) {
+      return response.status(401).json({ responseMessage: "UnAuthorized." });
+    }
+
     const existingPosts = await PostModel.exists({
       userId: { $eq: userData.id },
       postSlug: { $eq: postSlug },
