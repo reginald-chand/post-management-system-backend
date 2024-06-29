@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const userObjectValidator = Joi.object({
-  _csrf: Joi.string(),
+  csrfToken: Joi.string(),
 
   userData: Joi.object().required(),
 });

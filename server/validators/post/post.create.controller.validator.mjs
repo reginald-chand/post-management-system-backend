@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const postCreateControllerValidator = Joi.object({
-  _csrf: Joi.string().required(),
+  csrfToken: Joi.string().required(),
 
   postTitle: Joi.string().pattern(new RegExp("^[A-Z].*$")).required(),
   postContent: Joi.string().required(),
