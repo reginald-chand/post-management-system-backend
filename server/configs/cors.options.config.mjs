@@ -1,4 +1,4 @@
 export const corsOptions = {
-  origin: ["http://localhost:5001"],
+  origin: [process.env.ALLOWED_ORIGIN_A],
   optionsSuccessStatus: 200,
 };
